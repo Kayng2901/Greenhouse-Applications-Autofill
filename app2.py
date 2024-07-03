@@ -11,6 +11,20 @@ with sync_playwright() as p:
     page.fill('input[name="job_application[email]"]', 'Your Email')
     page.fill('input[name="job_application[phone]"]', 'Your Phone')
     page.fill('input[name="job_application[answers_attributes][0][text_value]"]', 'Your Linked-In')
+    page.evaluate("""
+        () => {
+            let select = document.querySelector('select[name="job_application[answers_attributes][1][boolean_value]"]');
+            select.value = '1'; // To say Yes, change it to '2' to say No
+            select.dispatchEvent(new Event('change'));
+        }
+    """)
+    page.evaluate("""
+        () => {
+            let select = document.querySelector('select[name="job_application[answers_attributes][2][boolean_value]"]');
+            select.value = '1'; // To say Yes, change it to '2' to say No
+            select.dispatchEvent(new Event('change'));
+        }
+    """)
 
     input("Press Enter to close...")
     browser.close()
